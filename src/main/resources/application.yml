@@ -26,4 +26,3 @@ springdoc:
 logging:
   level:
     root: INFO
-  file: currencies.log
