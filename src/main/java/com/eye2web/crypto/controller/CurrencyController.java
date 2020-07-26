@@ -43,6 +43,7 @@ public class CurrencyController {
         final var newCurrency = currencyService.createOrUpdateCurrency(modelMapper.map(currencyCreateRequest, Currency.class));
         log.info("Currency with id '{}' has been created", newCurrency.getId());
 
+        // Send resource REST endpoint as location header
         return ResponseEntity.created(generateCurrencyResourceURI(newCurrency.getId())).build();
     }
 
@@ -52,7 +53,10 @@ public class CurrencyController {
 
         return currencyOpt.map(currency ->
                 ResponseEntity.ok(modelMapper.map(currency, CurrencyResponse.class)))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseGet(() -> {
+                    log.warn("Currency with id: '{}' could not be found", id);
+                    return ResponseEntity.notFound().build();
+                });
     }
 
     @PutMapping("/{id}")
@@ -64,7 +68,10 @@ public class CurrencyController {
             final var updatedCurrency = currencyService.createOrUpdateCurrency(currency);
             log.info("Currency with id '{}' has been changed", updatedCurrency.getId());
             return ResponseEntity.accepted().build();
-        }).orElseGet(() -> ResponseEntity.notFound().build());
+        }).orElseGet(() -> {
+            log.warn("Currency with id: '{}' could not be found", id);
+            return ResponseEntity.notFound().build();
+        });
     }
 
     @DeleteMapping("/{id}")
