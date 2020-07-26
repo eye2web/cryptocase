@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "44273612-176f-4264-bd11-ec302fe0bbaf",
+		"name": "Crypto_currency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/api/currencies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/currencies",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"currencies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/currencies/b9cbb664-7a3c-4df3-a552-8edc8ac24fcb",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/currencies/b9cbb664-7a3c-4df3-a552-8edc8ac24fcb",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"currencies",
+						"b9cbb664-7a3c-4df3-a552-8edc8ac24fcb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/currencies/b9cbb664-7a3c-4df3-a552-8edc8ac24fcb",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ticker\": \"BCH\",\n    \"name\": \"BitcoinCash\",\n    \"numberOfCoins\": 16670000,\n    \"marketCap\": 69020000000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/currencies/b9cbb664-7a3c-4df3-a552-8edc8ac24fcb",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"currencies",
+						"b9cbb664-7a3c-4df3-a552-8edc8ac24fcb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/currencies/b9cbb664-7a3c-4df3-a552-8edc8ac24fcb",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/currencies/b9cbb664-7a3c-4df3-a552-8edc8ac24fcb",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"currencies",
+						"b9cbb664-7a3c-4df3-a552-8edc8ac24fcb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/currencies",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ticker\": \"BCH\",\n    \"name\": \"BitcoinCash\",\n    \"numberOfCoins\": 16670000,\n    \"marketCap\": 69020000000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/currencies",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"currencies"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
