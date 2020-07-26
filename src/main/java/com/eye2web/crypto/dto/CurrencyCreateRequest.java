@@ -14,19 +14,19 @@ import javax.validation.constraints.NotNull;
 public class CurrencyCreateRequest {
 
     @NotNull
-    @NotBlank(message = "Field ticker should not be blank!")
+    @NotBlank(message = Constants.NOT_BLANK_MESSAGE)
     private String ticker;
 
     @NotNull
-    @NotBlank(message = "Field name should not be blank!")
+    @NotBlank(message = Constants.NOT_BLANK_MESSAGE)
     private String name;
 
     @NotNull
-    @Min(value = 0, message = "numberOfCoins should be a positive number!")
+    @Min(value = 0, message = Constants.POSITIVE_NUMBER_MESSAGE)
     private Long numberOfCoins;
 
     @NotNull
-    @Min(value = 0, message = "marketCap should be a positive number!")
+    @Min(value = 0, message = Constants.POSITIVE_NUMBER_MESSAGE)
     private Long marketCap;
 
 }

@@ -8,17 +8,21 @@ import com.eye2web.crypto.dto.CurrencyUpdateRequest;
 import com.eye2web.crypto.service.CurrencyService;
 import eye2web.modelmapper.ModelMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
+import java.util.Collections;
 import java.util.UUID;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/currencies")
@@ -35,11 +39,11 @@ public class CurrencyController {
     }
 
     @PostMapping
-    public ResponseEntity<CurrencyResponse> createCurrency(@RequestBody @Valid final CurrencyCreateRequest currencyCreateRequest) {
+    public ResponseEntity<Void> createCurrency(@RequestBody @Valid final CurrencyCreateRequest currencyCreateRequest) {
         final var newCurrency = currencyService.createOrUpdateCurrency(modelMapper.map(currencyCreateRequest, Currency.class));
+        log.info("Currency with id '{}' has been created", newCurrency.getId());
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(modelMapper.map(newCurrency, CurrencyResponse.class));
+        return ResponseEntity.created(generateCurrencyResourceURI(newCurrency.getId())).build();
     }
 
     @GetMapping("/{id}")
@@ -52,15 +56,15 @@ public class CurrencyController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CurrencyResponse> updateCurrency(@PathVariable("id") final UUID id, @RequestBody @Valid final CurrencyUpdateRequest currencyUpdateRequest) {
+    public ResponseEntity<?> updateCurrency(@PathVariable("id") final UUID id, @RequestBody @Valid final CurrencyUpdateRequest currencyUpdateRequest) {
         final var currencyOpt = currencyService.getCurrency(id);
 
         return currencyOpt.map(currency -> {
             modelMapper.map(currencyUpdateRequest, currency);
             final var updatedCurrency = currencyService.createOrUpdateCurrency(currency);
-            return ResponseEntity.ok(modelMapper.map(updatedCurrency, CurrencyResponse.class));
+            log.info("Currency with id '{}' has been changed", updatedCurrency.getId());
+            return ResponseEntity.accepted().build();
         }).orElseGet(() -> ResponseEntity.notFound().build());
-
     }
 
     @DeleteMapping("/{id}")
@@ -69,9 +73,16 @@ public class CurrencyController {
 
         return currencyOpt.map(currency -> {
             currencyService.deleteCurrency(currency);
+            log.info("Currency with id '{}' has been deleted", id);
             return ResponseEntity.accepted().build();
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    private URI generateCurrencyResourceURI(final UUID id) {
+        final var template = "/api/currencies/{id:.*}";
+        final var uriComponents = UriComponentsBuilder.fromUriString(template)
+                .build();
+        return uriComponents.expand(Collections.singletonMap("id", id)).toUri();
+    }
 
 }

@@ -17,7 +17,7 @@ public class LastResortControllerAdvice {
     @ExceptionHandler({Exception.class, RuntimeException.class, Throwable.class})
     public ResponseEntity<Void> handleException(final Exception ex, final WebRequest request) {
 
-        log.error(ex.getMessage());
+        log.error("Last Resort Error: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 

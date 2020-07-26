@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CurrencyUpdateRequest {
 
-    @NullOrNotBlank(message = "Should not be blank")
+    @NullOrNotBlank(message = Constants.NOT_BLANK_MESSAGE)
     private String ticker;
 
-    @NullOrNotBlank(message = "Should not be blank")
+    @NullOrNotBlank(message = Constants.NOT_BLANK_MESSAGE)
     private String name;
 
-    @NullOrPositive(message = "Should be a positive number")
+    @NullOrPositive(message = Constants.POSITIVE_NUMBER_MESSAGE)
     private Long numberOfCoins;
 
-    @NullOrPositive(message = "Should be a positive number")
+    @NullOrPositive(message = Constants.POSITIVE_NUMBER_MESSAGE)
     private Long marketCap;
 }
