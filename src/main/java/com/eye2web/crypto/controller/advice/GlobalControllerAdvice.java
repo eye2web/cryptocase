@@ -21,7 +21,7 @@ public class GlobalControllerAdvice {
     @ExceptionHandler({ConstraintViolationException.class})
     public ResponseEntity<Void> handleDuplicationException(final ConstraintViolationException ex) {
 
-        log.warn("{}", ex.getMessage());
+        log.warn("Entity conflicted: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 

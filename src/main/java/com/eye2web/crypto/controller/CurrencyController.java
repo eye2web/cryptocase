@@ -82,7 +82,10 @@ public class CurrencyController {
             currencyService.deleteCurrency(currency);
             log.info("Currency with id '{}' has been deleted", id);
             return ResponseEntity.accepted().build();
-        }).orElseGet(() -> ResponseEntity.notFound().build());
+        }).orElseGet(() -> {
+            log.warn("Currency with id: '{}' could not be found", id);
+            return ResponseEntity.notFound().build();
+        });
     }
 
     private URI generateCurrencyResourceURI(final UUID id) {
